@@ -73,6 +73,11 @@ public class LEDStripManager implements ProcedureCalls {
 		mStripData.mStrip.set(_pxl, _color);
 	}
 	
+	public void setPixel(int _pxl, int _r, int _g, int _b) {
+		Color c = new Color(Math.max(0, _r), Math.max(0, _g), Math.max(0, _b));
+		mStripData.mStrip.set(_pxl, c);
+	}
+	
 	/**
 	 * @param _startPxl The start index for the area
 	 * @param _endPxl The end index for the area
