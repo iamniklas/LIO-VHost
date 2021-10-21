@@ -42,6 +42,7 @@ public class Main {
 			
 			@Override
 			public void onReceiveMessage(String _message) {
+				System.out.println(_message);
 				LEDChangeModel changeModel = 
 						new GsonBuilder()
 						.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

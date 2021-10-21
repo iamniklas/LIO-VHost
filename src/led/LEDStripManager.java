@@ -37,11 +37,12 @@ public class LEDStripManager implements ProcedureCalls {
 		LEDDataBundle bundle = new LEDDataBundle();
 		bundle.ledStrip = this;
 		bundle.procedureCalls = this;
+		bundle.data = "indices = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 299]; function update(strip, procedure, step, totalSteps) {d = Math.abs(Math.sin(step * Math.PI/180)); for(i = 0; i < indices.length; i++) { strip.setPixel(indices[i], 0, parseInt(d * 255), 0); } if(step >= totalSteps) { procedure.finish(); } }";
 		
-		changeModel.mProcedure = ProcedureType.JS;
+		changeModel.mProcedure = ProcedureType.Javascript;
 		changeModel.mBundle = bundle;
 		
-		JSProcedure proc = (JSProcedure) ProcedureFactory.getProcedure(changeModel.mProcedure, changeModel.mBundle);
+		JavascriptProcedure proc = (JavascriptProcedure) ProcedureFactory.getProcedure(changeModel.mProcedure, changeModel.mBundle);
 		mProcContainer.queueProcedure(proc);
 	}
 	

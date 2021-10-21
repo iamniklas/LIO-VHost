@@ -21,10 +21,14 @@ public class ColorRGBA {
 	}
 	
 	public ColorRGB toRGB(ColorRGB _baseColor) {
-		return new ColorRGB(
+		ColorRGB rgb = new ColorRGB(
 				(int)((1 - a/255.0f) * _baseColor.r + (a/255.0f) * r),
 				(int)((1 - a/255.0f) * _baseColor.g + (a/255.0f) * g),
 				(int)((1 - a/255.0f) * _baseColor.b + (a/255.0f) * b));
+		rgb.r = Math.max(0, Math.min(rgb.r, 255));
+		rgb.g = Math.max(0, Math.min(rgb.g, 255));
+		rgb.b = Math.max(0, Math.min(rgb.b, 255));
+		return rgb;
 	}
 	
 	public ColorRGBA dim(float _percentage) {

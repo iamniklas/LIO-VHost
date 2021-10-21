@@ -2,6 +2,7 @@ package procedures;
 
 import java.awt.Color;
 
+import led.ColorRGB;
 import led.LEDDataBundle;
 import led.LEDStripManager;
 import led.ProcedureBundleFields;
@@ -22,11 +23,15 @@ public class BootCompleteProcedure extends Procedure {
 
 	@Override
 	public void start() {
-		
+		mStrip.setAllPixels(ColorRGB.black.toSystemColor());
 	}
 	
 	@Override
 	public void update() {
+		if(mStep == 0) {
+			start();
+		}
+		
 		double d = Math.abs(Math.sin(Math.toRadians(mStep)));
 		
 		Color c = new Color(0, (int) (d * 255), 0);

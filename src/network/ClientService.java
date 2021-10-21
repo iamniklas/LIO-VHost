@@ -37,6 +37,7 @@ public class ClientService extends Thread implements ReceiveCallback {
 
 	@Override
 	public void onReceiveMessage(String _message) {
+		System.out.println("Message received");
 		mServer.receiveMessage(_message);
 	}
 }

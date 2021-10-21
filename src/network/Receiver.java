@@ -67,6 +67,7 @@ public class Receiver extends Thread {
 		for (int i = 0; i < messageBinary.length; i++) {
 			messageBinary[i] = mDataInputStream.readByte();
 		}
+		System.out.println("Message received");
 		return new String(messageBinary, StandardCharsets.UTF_8);
 	}
 }

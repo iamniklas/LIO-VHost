@@ -9,6 +9,8 @@ public class LEDDataBundle {
 	public ColorRGB colorSecondary;
 	public ColorRGB colorTertiary;
 	
+	public String data;
+	
 	public Float value1;
 	public Float value2;
 	public Float value3;

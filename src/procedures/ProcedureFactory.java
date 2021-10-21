@@ -23,7 +23,7 @@ public class ProcedureFactory {
 		case Lightning:			 return new LightningProcedure(_bundle);
 		case NoLongerReady:		 return new NoLongerReadyProcedure(_bundle);
 		case JsonProcedure:		 return new JsonProcedure(_bundle);
-		case JS:		 		 return new JSProcedure(_bundle);
+		case Javascript:		 		 return new JavascriptProcedure(_bundle);
 		default: 				 return null;
 		}
 	}

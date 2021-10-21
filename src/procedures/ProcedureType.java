@@ -18,6 +18,6 @@ public enum ProcedureType {
 	Navigation,
 	Progress,
 	Lightning,
-	JS,
+	Javascript,
 	NoLongerReady
 }
