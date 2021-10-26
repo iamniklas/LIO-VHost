@@ -14,7 +14,7 @@ class JavascriptProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var invokeEngine: Invocable? = null
     var eval: Any? = null
     override fun start() {}
-    public override fun update() {
+    override fun update() {
         try {
             invokeEngine!!.invokeFunction("update", mStrip, this, mStep, 720)
             mStep += 5
@@ -33,10 +33,10 @@ class JavascriptProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
         runtime = null
         invokeEngine = null
         eval = null
-        runtime = ScriptEngineManager().getEngineByName("javascript")!!
+        runtime = ScriptEngineManager().getEngineByName("javascript")
         jsUpdate = _bundle.data
         try {
-            eval = runtime!!.eval(jsUpdate.toString())
+            eval = runtime?.eval(jsUpdate.toString())
             invokeEngine = runtime as Invocable?
         } catch (e: ScriptException) {
             // TODO Auto-generated catch block
