@@ -1,9 +1,6 @@
 package led.json
 
 import com.google.gson.annotations.SerializedName
-import led.json.MetaInfo
-import led.json.LEDStateArray
-import led.ColorRGB
 
 class MetaInfo {
     @SerializedName("led_count")

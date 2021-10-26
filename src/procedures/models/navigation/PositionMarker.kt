@@ -1,6 +1,5 @@
 package procedures.models.navigation
 
-import procedures.models.navigation.Attenutation
 import led.ColorRGB
 
 class PositionMarker {
