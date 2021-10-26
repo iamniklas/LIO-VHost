@@ -1,22 +1,10 @@
 package led
 
-import led.ColorRGB
-import com.google.gson.annotations.SerializedName
-import led.ColorChannel
-import led.ColorRGBA
-import led.ColorHSV
-import interpolation.InterpolationType
-import led.LEDStripManager
-import javax.swing.JLabel
-import led.LEDStripConfig
-import led.LEDStrip
-import led.LEDStripRenderer
-import java.lang.InterruptedException
 import led.json.LEDStatus
 import network.LEDChangeModel
-import led.LEDDataBundle
 import procedures.*
 import java.awt.Color
+import javax.swing.JLabel
 
 class LEDStripManager(_leds: Array<JLabel?>, _clearOnExit: Boolean) : ProcedureCalls {
     private val mLedStripConfig = LEDStripConfig()

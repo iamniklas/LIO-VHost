@@ -1,7 +1,5 @@
 package interpolation
 
-import interpolation.Interpolation
-import interpolation.InterpolationType
 import kotlin.math.pow
 
 object Interpolation {
