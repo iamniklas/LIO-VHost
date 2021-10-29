@@ -1,7 +1,7 @@
 package procedures
 
-import interpolation.Interpolation.getInterpolationValue
-import interpolation.InterpolationType
+import com.github.iamniklas.liocore.interpolation.Interpolation.getInterpolationValue
+import com.github.iamniklas.liocore.interpolation.InterpolationType
 import led.LEDDataBundle
 import led.LEDStripManager
 import java.awt.Color

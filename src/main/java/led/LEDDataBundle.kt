@@ -1,6 +1,6 @@
 package led
 
-import interpolation.InterpolationType
+import com.github.iamniklas.liocore.interpolation.InterpolationType
 import procedures.ProcedureCalls
 import procedures.models.Direction
 
