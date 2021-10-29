@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 import procedures.models.navigation.PositionMarker
 import procedures.models.navigation.Size
 
@@ -17,7 +18,7 @@ class NavigationProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
                 }
                 Size.Small -> {
                 }
-                Size.Single -> mStrip!!.setPixel((marker.mXPosition * 180.0f).toInt(), marker.mColor.toSystemColor())
+                Size.Single -> strip!!.setPixel((marker.mXPosition * 180.0f).toInt(), marker.mColor.toSystemColor())
                 else -> {
                 }
             }

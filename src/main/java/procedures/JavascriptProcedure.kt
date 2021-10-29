@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 import javax.script.ScriptEngine
 import javax.script.Invocable
 import java.lang.NoSuchMethodException
@@ -16,8 +17,8 @@ class JavascriptProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     override fun start() {}
     override fun update() {
         try {
-            invokeEngine!!.invokeFunction("update", mStrip, this, mStep, 720)
-            mStep += 5
+            invokeEngine!!.invokeFunction("update", strip, this, step, 720)
+            step += 5
         } catch (e: NoSuchMethodException) {
             e.printStackTrace()
         } catch (e: ScriptException) {

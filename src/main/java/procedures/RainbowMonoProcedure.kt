@@ -1,7 +1,8 @@
 package procedures
 
-import led.ColorHSV
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.colorspace.ColorHSV
+import com.github.iamniklas.liocore.procedures.Procedure
 
 class RainbowMonoProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var mColorHSV = ColorHSV(0, 1.0f, 1.0f)
@@ -11,7 +12,7 @@ class RainbowMonoProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     override fun start() {}
     public override fun update() {
         mColorHSV.h = (if (mColorHSV.h > 360.0f) 0 else mColorHSV.h + mSpeed).toInt()
-        mStrip!!.setAllPixels(mColorHSV.ToRGB().toSystemColor())
+        strip!!.setAllPixels(mColorHSV.toRGB().toSystemColor())
     }
 
     init {

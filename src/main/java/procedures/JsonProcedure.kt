@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 import led.json.LEDJsonProcedure
 import led.json.interpreter.FileVersions
 import led.json.interpreter.LEDInterpreter
@@ -14,10 +15,10 @@ class JsonProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     override fun start() {}
     public override fun update() {
         for (i in 0 until mLEDJsonProcedure!!.mMetaInfo!!.mLedCount) {
-            mStrip!!.setPixel(i, mLEDJsonProcedure!!.mLEDStates[mStep]!!.mLEDState[i].toSystemColor())
+            strip!!.setPixel(i, mLEDJsonProcedure!!.mLEDStates[step]!!.mLEDState[i].toSystemColor())
         }
-        mStep += 5
-        if (mStep >= mSteps) {
+        step += 5
+        if (step >= steps) {
             finishProcedure()
         }
     }
@@ -35,7 +36,7 @@ class JsonProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
 
     init {
         mLEDJsonProcedure = loadFromFile(_bundle.path)
-        mSteps = mLEDJsonProcedure!!.mLEDStates.size - 1
+        steps = mLEDJsonProcedure!!.mLEDStates.size - 1
 
         //mIsSubProcedure = (boolean) _bundle.get(ProcedureBundleFields.IS_SUB_PROCEDURE);
     }

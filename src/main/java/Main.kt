@@ -1,6 +1,7 @@
+import com.github.iamniklas.liocore.led.LEDStripManager
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import led.LEDStripManager
+import led.SwingRenderer
 import network.LEDChangeModel
 import network.ReceiveCallback
 import network.Server
@@ -37,6 +38,8 @@ class Main {
 
     companion object {
         private val leds = arrayOfNulls<JLabel>(300)
+        private var renderer: SwingRenderer = SwingRenderer(leds, 300)
+
         private var windowReady = false
         private var ledMng: LEDStripManager? = null
         private var mServer: Server? = null
@@ -62,8 +65,8 @@ class Main {
                     bundle.ledStrip = ledMng
                     bundle.procedureCalls = ledMng
                     val p = ProcedureFactory.getProcedure(type, bundle)!!
-                    ledMng!!.mProcContainer.removeCurrentProcedure()
-                    ledMng!!.mProcContainer.queueProcedure(p)
+                    ledMng!!.procContainer.removeCurrentProcedure()
+                    ledMng!!.procContainer.queueProcedure(p)
                 }
             })
 
@@ -78,7 +81,7 @@ class Main {
                 }
             }
             Thread.sleep(1000)
-            ledMng = LEDStripManager(leds, false)
+            ledMng = LEDStripManager(renderer, false)
             while (true) {
                 ledMng!!.update()
             }

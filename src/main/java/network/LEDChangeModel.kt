@@ -1,7 +1,7 @@
 package network
 
+import com.github.iamniklas.liocore.led.LEDDataBundle
 import com.google.gson.annotations.SerializedName
-import led.LEDDataBundle
 import procedures.ProcedureType
 
 class LEDChangeModel {

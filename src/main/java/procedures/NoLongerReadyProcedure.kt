@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 
 //A signal animation to notify the user that the strip is no longer ready for any reason (internal error, network disconnect, etc.)
@@ -9,17 +10,17 @@ class NoLongerReadyProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var mRedLightActive = false
     override fun start() {}
     public override fun update() {
-        if (mStep % 5 == 0) {
+        if (step % 5 == 0) {
             if (mRedLightActive) {
-                mStrip!!.setAllPixels(Color.BLACK)
+                strip!!.setAllPixels(Color.BLACK)
             } else {
-                mStrip!!.setAllPixels(Color.RED)
+                strip!!.setAllPixels(Color.RED)
             }
             mRedLightActive = !mRedLightActive
         }
-        mStep++
-        if (mStep > mTotalSteps) {
-            mStrip!!.setAllPixels(Color.BLACK)
+        step++
+        if (step > mTotalSteps) {
+            strip!!.setAllPixels(Color.BLACK)
             finishProcedure()
         }
     }

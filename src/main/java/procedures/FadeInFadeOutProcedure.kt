@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 
 //Fade one given color in, then fade out to black
@@ -9,17 +10,17 @@ class FadeInFadeOutProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     private val mTotalSteps = 180
     override fun start() {}
     public override fun update() {
-        val d = Math.abs(Math.sin(Math.toRadians(mStep.toDouble()))).toFloat()
-        mStrip!!.setAllPixels(
+        val d = Math.abs(Math.sin(Math.toRadians(step.toDouble()))).toFloat()
+        strip!!.setAllPixels(
             Color(
                 (mColorPartModifier[0] * d * 255.0f).toInt(),
                 (mColorPartModifier[1] * d * 255.0f).toInt(),
                 (mColorPartModifier[2] * d * 255.0f).toInt()
             )
         )
-        mStep += 5
-        if (mStep >= mTotalSteps) {
-            mStrip!!.setAllPixels(Color.BLACK)
+        step += 5
+        if (step >= mTotalSteps) {
+            strip!!.setAllPixels(Color.BLACK)
             finishProcedure()
         }
     }

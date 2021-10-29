@@ -1,9 +1,12 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
-import led.LEDStripManager
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.util.*
+import kotlin.math.abs
+import kotlin.math.sin
 
 class GlitterProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var mBaseColor: ColorRGB?
@@ -22,11 +25,7 @@ class GlitterProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
         tcount += mSpeed
         if (tcount > Math.PI * 2) tcount = 0f
         for (i in 0 until LEDStripManager.LED_COUNT) {
-            mStrip!!.setPixel(
-                i, mBaseColor!!.dim(
-                    Math.abs(Math.sin((tcount + mLedX[i]).toDouble())).toFloat()
-                ).toSystemColor()
-            )
+            strip!!.setPixel(i, mBaseColor!!.dim(abs(sin((tcount + mLedX[i]).toDouble())).toFloat()).toSystemColor())
         }
     }
 

@@ -1,9 +1,10 @@
 package procedures
 
-import led.LEDDataBundle
-import led.LEDStripManager
-import led.ColorHSV
-import procedures.models.Direction
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.led.colorspace.ColorHSV
+import com.github.iamniklas.liocore.procedures.Procedure
+import com.github.iamniklas.liocore.procedures.models.Direction
 
 class RainbowProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var mColorHSV = ColorHSV(0, 1.0f, 1.0f)
@@ -36,12 +37,12 @@ class RainbowProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
             if (mDirection == Direction.Center || mDirection == Direction.CenterInvert) {
                 mColorHSV.h =
                     ((i * (mRepetitions * (360.0f / LEDStripManager.LED_COUNT.toFloat()))).toInt() + mHueArrayCounter[i]).toInt() % 360
-                mStrip!!.setPixel(i, mColorHSV.ToRGB().toSystemColor())
+                strip!!.setPixel(i, mColorHSV.toRGB().toSystemColor())
                 continue
             }
             mColorHSV.h =
                 ((i * (mRepetitions * (360.0f / LEDStripManager.LED_COUNT.toFloat()))).toInt() + mHueCounter).toInt() % 360
-            mStrip!!.setPixel(i, mColorHSV.ToRGB().toSystemColor())
+            strip!!.setPixel(i, mColorHSV.toRGB().toSystemColor())
         }
     }
 

@@ -1,8 +1,9 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
-import led.LEDStripManager
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.procedures.Procedure
 import procedures.models.IndeterminateState
 
 class ProgressProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
@@ -15,15 +16,15 @@ class ProgressProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     private var mSineX = 0.0f
     private var mSpeed = 0.2f
     override fun start() {
-        mStrip!!.setAllPixels(ColorRGB.black.toSystemColor())
+        strip!!.setAllPixels(ColorRGB.black.toSystemColor())
     }
 
     public override fun update() {
-        mStrip!!.setAllPixels(ColorRGB.black.toSystemColor())
+        strip!!.setAllPixels(ColorRGB.black.toSystemColor())
         if (mPulsing) {
             mSineX += mSpeed
             if (mSineX > Math.PI * 2) mSineX = 0f
-            mStrip!!.setArea(
+            strip!!.setArea(
                 (LEDStripManager.LED_COUNT * mStart).toInt(),
                 (LEDStripManager.LED_COUNT * mProgress).toInt(),
                 mColor!!.dim(Math.abs(Math.sin(mSineX.toDouble())).toFloat()).toSystemColor()
@@ -53,13 +54,13 @@ class ProgressProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
                     mIndeterminateState = IndeterminateState.Clear
                 }
             }
-            mStrip!!.setArea(
+            strip!!.setArea(
                 Math.min(Math.max((LEDStripManager.LED_COUNT * mStart).toInt(), 0), 300),
                 Math.min(Math.max((LEDStripManager.LED_COUNT * mProgress).toInt(), 0), 300),
                 mColor!!.toSystemColor()
             )
         } else {
-            mStrip!!.setArea(
+            strip!!.setArea(
                 (LEDStripManager.LED_COUNT * mStart).toInt(),
                 (LEDStripManager.LED_COUNT * mProgress).toInt(),
                 mColor!!.toSystemColor()
@@ -74,7 +75,7 @@ class ProgressProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
         mIndeterminate = _bundle.indeterminate!!
         mPulsing = _bundle.pulsating!!
         mSpeed = _bundle.speed!!
-        mSteps = 1
+        steps = 1
         start()
     }
 }

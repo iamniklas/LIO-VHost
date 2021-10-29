@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 
 object ProcedureFactory {
     fun getProcedure(_types: ProcedureType?, _bundle: LEDDataBundle): Procedure? {

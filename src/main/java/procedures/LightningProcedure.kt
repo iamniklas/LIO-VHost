@@ -1,26 +1,27 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.procedures.Procedure
 
 class LightningProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     private var mSpeed: Float
     private val mAtenuation: Float
     override fun start() {}
     public override fun update() {
-        mStrip!!.setAllPixels(
-            ColorRGB.white50.dim(Math.abs(Math.sin((mStep / mSpeed).toDouble())).toFloat()).toSystemColor()
+        strip!!.setAllPixels(
+            ColorRGB.white50.dim(Math.abs(Math.sin((step / mSpeed).toDouble())).toFloat()).toSystemColor()
         )
         mSpeed += mAtenuation
-        if (mStep > mSteps) {
+        if (step > steps) {
             finishProcedure(true)
         }
-        mStep++
+        step++
     }
 
     init {
         mSpeed = _bundle.speed!!
         mAtenuation = _bundle.value1!!
-        mSteps = _bundle.duration!! * 50
+        steps = _bundle.duration!! * 50
     }
 }

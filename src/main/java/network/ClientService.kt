@@ -1,7 +1,7 @@
 package network
 
+import com.github.iamniklas.liocore.led.LEDStripManager
 import com.google.gson.Gson
-import led.LEDStripManager
 import java.io.IOException
 import java.net.Socket
 
@@ -31,7 +31,8 @@ class ClientService(_server: Server, _socket: Socket) : Thread(), ReceiveCallbac
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        mSender!!.send(Gson().toJson(LEDStripManager.mLEDStatus))
+        //TODO
+        //mSender!!.send(Gson().toJson(LEDStripManager.mLEDStatus))
         mReceiver!!.start()
     }
 }

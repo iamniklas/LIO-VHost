@@ -2,25 +2,28 @@ package procedures
 
 import com.github.iamniklas.liocore.interpolation.*
 import com.github.iamniklas.liocore.interpolation.Interpolation.*
-import led.LEDDataBundle
-import led.LEDStripManager
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 
 class FillStripInterpolatedProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     private var mLitLEDs = 0
     private var mPpercentage = 0.0f
     private var mFillColor = Color.BLACK
-    var mInterpolationType = InterpolationType.EaseOutBounce
+    var mInterpolationType = InterpolationType.EaseInOutExpo
     override fun start() {}
     public override fun update() {
-        mPpercentage = mStep / LEDStripManager.LED_COUNT.toFloat()
-        mStep++
+        mPpercentage = step / LEDStripManager.LED_COUNT.toFloat()
+        step++
         mLitLEDs = Math.min(300, (getInterpolationValue(mPpercentage, mInterpolationType) * 300.0f).toInt())
-        println(mLitLEDs)
-        mStrip!!.setAllPixels(Color.BLACK)
-        mStrip!!.setArea(0, mLitLEDs, mFillColor)
-        if (mStep > LEDStripManager.LED_COUNT) {
-            mStrip!!.mProcContainer.removeCurrentProcedure()
+
+        //println(mLitLEDs)
+
+        strip!!.setAllPixels(Color.BLACK)
+        strip!!.setArea(0, mLitLEDs, mFillColor)
+        if (step > LEDStripManager.LED_COUNT) {
+            strip!!.procContainer.removeCurrentProcedure()
             finishProcedure()
         }
     }

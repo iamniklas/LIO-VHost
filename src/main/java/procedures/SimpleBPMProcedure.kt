@@ -1,7 +1,8 @@
 package procedures
 
-import led.LEDDataBundle
-import led.LEDStripManager
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 import java.awt.geom.Area
 import java.time.LocalDateTime
@@ -15,12 +16,12 @@ class SimpleBPMProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     override fun start() {}
     public override fun update() {
         mCounter = if (mCounter > mBeatStep) 0.0f else mCounter + 20.0f
-        mStrip!!.setArea(0, LEDStripManager.LED_COUNT, Color.BLACK)
+        strip!!.setArea(0, LEDStripManager.LED_COUNT, Color.BLACK)
         if (mCounter == 0.0f) {
             val dtf = DateTimeFormatter.ofPattern("mm:ss:SSS")
             val now = LocalDateTime.now()
             println(dtf.format(now))
-            mStrip!!.setArea(0, LEDStripManager.LED_COUNT, Color.RED)
+            strip!!.setArea(0, LEDStripManager.LED_COUNT, Color.RED)
         }
     }
 

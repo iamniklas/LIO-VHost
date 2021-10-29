@@ -1,6 +1,6 @@
 package procedures.models.navigation
 
-import led.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
 
 class PositionMarker {
     var mTag = ""

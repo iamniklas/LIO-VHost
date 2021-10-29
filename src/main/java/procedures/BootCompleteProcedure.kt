@@ -1,8 +1,11 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
+import kotlin.math.abs
+import kotlin.math.sin
 
 //A signal animation for the user that the strip is ready for use
 class BootCompleteProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
@@ -15,21 +18,21 @@ class BootCompleteProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     )
 
     override fun start() {
-        mStrip!!.setAllPixels(ColorRGB.black.toSystemColor())
+        strip!!.setAllPixels(ColorRGB.black.toSystemColor())
     }
 
     public override fun update() {
-        if (mStep == 0) {
+        if (step == 0) {
             start()
         }
-        val d = Math.abs(Math.sin(Math.toRadians(mStep.toDouble())))
+        val d = abs(sin(Math.toRadians(step.toDouble())))
         val c = Color(0, (d * 255).toInt(), 0)
         for (i in mLEDIndices.indices) {
-            mStrip!!.setPixel(mLEDIndices[i], c)
+            strip!!.setPixel(mLEDIndices[i], c)
         }
-        mStep += 5
-        if (mStep == mStepsTotal) {
-            mStrip!!.setAllPixels(Color.BLACK)
+        step += 5
+        if (step == mStepsTotal) {
+            strip!!.setAllPixels(Color.BLACK)
             finishProcedure()
         }
     }

@@ -1,8 +1,9 @@
 package procedures
 
-import led.LEDDataBundle
-import led.LEDStripManager
-import procedures.models.Direction
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.procedures.Procedure
+import com.github.iamniklas.liocore.procedures.models.Direction
 import java.awt.Color
 
 //Animation to fill the strip from a given direction (left, right, center, bounds) with a given color 
@@ -16,39 +17,39 @@ class FillStripProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
             Direction.Center -> {
                 var i = 0
                 while (i < mSpeed) {
-                    mStrip!!.setPixel(LEDStripManager.LED_COUNT / 2 - 1 + mStep + i, mFillColor)
-                    mStrip!!.setPixel(LEDStripManager.LED_COUNT / 2 - 1 - mStep - i, mFillColor)
+                    strip!!.setPixel(LEDStripManager.LED_COUNT / 2 - 1 + step + i, mFillColor)
+                    strip!!.setPixel(LEDStripManager.LED_COUNT / 2 - 1 - step - i, mFillColor)
                     i++
                 }
             }
             Direction.CenterInvert -> {
                 var i = 0
                 while (i < mSpeed) {
-                    mStrip!!.setPixel(mStep + i, mFillColor)
-                    mStrip!!.setPixel(LEDStripManager.LED_COUNT - 1 - mStep - i, mFillColor)
+                    strip!!.setPixel(step + i, mFillColor)
+                    strip!!.setPixel(LEDStripManager.LED_COUNT - 1 - step - i, mFillColor)
                     i++
                 }
             }
             Direction.Left -> {
                 var i = 0
                 while (i < mSpeed) {
-                    mStrip!!.setPixel(mStep + i, mFillColor)
+                    strip!!.setPixel(step + i, mFillColor)
                     i++
                 }
             }
             Direction.Right -> {
                 var i = 0
                 while (i < mSpeed) {
-                    mStrip!!.setPixel(LEDStripManager.LED_COUNT - 1 - mStep - i, mFillColor)
+                    strip!!.setPixel(LEDStripManager.LED_COUNT - 1 - step - i, mFillColor)
                     i++
                 }
             }
             else -> {
             }
         }
-        mStep += mSpeed
-        if (mStep >= mSteps) {
-            if (!mIsSubProcedure) {
+        step += mSpeed
+        if (step >= steps) {
+            if (!isSubProcedure) {
                 finishProcedure()
             }
         }
@@ -58,9 +59,9 @@ class FillStripProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
         mFillColor = _bundle.colorPrimary!!.toSystemColor()
         mSpeed = Math.round(_bundle.speed!!)
         mDirection = _bundle.direction
-        mSteps = LEDStripManager.LED_COUNT
+        steps = LEDStripManager.LED_COUNT
         if (mDirection == Direction.Center || mDirection == Direction.CenterInvert) {
-            mSteps /= 2
+            steps /= 2
         }
     }
 }

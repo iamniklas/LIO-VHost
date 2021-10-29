@@ -1,6 +1,7 @@
 package procedures
 
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.procedures.Procedure
 
 class MultiProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     lateinit var mProcedures: Array<Procedure>
@@ -9,15 +10,15 @@ class MultiProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
             procedure.start()
             //mSteps = procedure.mSteps > mSteps ? procedure.mSteps : mSteps; 
         }
-        mSteps = 60
+        steps = 60
     }
 
     public override fun update() {
-        mStep++
+        step++
         for (procedure in mProcedures) {
             procedure.update()
         }
-        if (mStep >= mSteps) {
+        if (step >= steps) {
             finishProcedure()
         }
     }

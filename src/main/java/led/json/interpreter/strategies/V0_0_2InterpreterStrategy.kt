@@ -1,6 +1,6 @@
 package led.json.interpreter.strategies
 
-import led.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
 import led.json.LEDJsonProcedure
 
 class V0_0_2InterpreterStrategy : IInterpreterStrategy {

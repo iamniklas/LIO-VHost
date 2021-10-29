@@ -1,8 +1,7 @@
 package led.json.interpreter
 
-import led.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
 import led.json.LEDJsonProcedure
-import led.json.interpreter.NotAvailableException
 import led.json.interpreter.strategies.V0_0_0InterpreterStrategy
 import led.json.interpreter.strategies.V0_0_1InterpreterStrategy
 import led.json.interpreter.strategies.V0_0_2InterpreterStrategy

@@ -1,23 +1,25 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
+import com.github.iamniklas.liocore.led.*
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.procedures.*
 import java.awt.Color
 
 class BlinkProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     var mBlinkColor: Color
     var mFrames = 10
-    override var mModulo = 2
+    var modulo = 2
+
     override fun start() {}
-    public override fun update() {
-        mStep++
-        if (mStep % mModulo == 0) {
-            mStrip!!.setAllPixels(mBlinkColor)
+    override fun update() {
+        step++
+        if (step % modulo == 0) {
+            strip!!.setAllPixels(mBlinkColor)
         } else {
-            mStrip!!.setAllPixels(ColorRGB.black.toSystemColor())
+            strip!!.setAllPixels(ColorRGB.black.toSystemColor())
         }
-        if (mStep == mSteps) {
-            mStrip!!.setAllPixels(ColorRGB.black.toSystemColor())
+        if (step == steps) {
+            strip!!.setAllPixels(ColorRGB.black.toSystemColor())
             finishProcedure()
         }
     }
@@ -25,7 +27,7 @@ class BlinkProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     init {
         mBlinkColor = _bundle.colorPrimary!!.toSystemColor()
         mFrames = _bundle.duration!!
-        mModulo = _bundle.modulo!!
-        mSteps = mFrames
+        modulo = _bundle.modulo!!
+        steps = mFrames
     }
 }
