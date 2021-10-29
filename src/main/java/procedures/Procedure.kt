@@ -1,8 +1,6 @@
 package procedures
 
-import led.ColorRGB
-import led.LEDDataBundle
-import led.LEDStripManager
+import led.*
 
 abstract class Procedure(_bundle: LEDDataBundle) {
     var mStrip: LEDStripManager?
