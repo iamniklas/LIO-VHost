@@ -2,11 +2,12 @@ package procedures
 
 import com.github.iamniklas.liocore.led.*
 import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.LIOColor
 import com.github.iamniklas.liocore.procedures.*
 import java.awt.Color
 
 class BlinkProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
-    var mBlinkColor: Color
+    var mBlinkColor: LIOColor
     var mFrames = 10
     var modulo = 2
 

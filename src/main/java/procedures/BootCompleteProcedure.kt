@@ -2,6 +2,7 @@ package procedures
 
 import com.github.iamniklas.liocore.led.LEDDataBundle
 import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.LIOColor
 import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 import kotlin.math.abs
@@ -26,13 +27,13 @@ class BootCompleteProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
             start()
         }
         val d = abs(sin(Math.toRadians(step.toDouble())))
-        val c = Color(0, (d * 255).toInt(), 0)
+        val c = LIOColor(0, (d * 255).toInt(), 0)
         for (i in mLEDIndices.indices) {
             strip!!.setPixel(mLEDIndices[i], c)
         }
         step += 5
         if (step == mStepsTotal) {
-            strip!!.setAllPixels(Color.BLACK)
+            strip!!.setAllPixels(ColorRGB.black.toSystemColor())
             finishProcedure()
         }
     }

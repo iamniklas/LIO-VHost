@@ -1,6 +1,8 @@
 package procedures
 
 import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
+import com.github.iamniklas.liocore.led.colorspace.LIOColor
 import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 
@@ -12,7 +14,7 @@ class FadeInFadeOutProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     public override fun update() {
         val d = Math.abs(Math.sin(Math.toRadians(step.toDouble()))).toFloat()
         strip!!.setAllPixels(
-            Color(
+            LIOColor(
                 (mColorPartModifier[0] * d * 255.0f).toInt(),
                 (mColorPartModifier[1] * d * 255.0f).toInt(),
                 (mColorPartModifier[2] * d * 255.0f).toInt()
@@ -20,15 +22,15 @@ class FadeInFadeOutProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
         )
         step += 5
         if (step >= mTotalSteps) {
-            strip!!.setAllPixels(Color.BLACK)
+            strip!!.setAllPixels(ColorRGB.black.toSystemColor())
             finishProcedure()
         }
     }
 
     init {
         val targetColor = _bundle.colorPrimary!!.toSystemColor()
-        mColorPartModifier[0] = targetColor.red.toFloat() / 255.0f
-        mColorPartModifier[1] = targetColor.green.toFloat() / 255.0f
-        mColorPartModifier[2] = targetColor.blue.toFloat() / 255.0f
+        mColorPartModifier[0] = targetColor.r.toFloat() / 255.0f
+        mColorPartModifier[1] = targetColor.g.toFloat() / 255.0f
+        mColorPartModifier[2] = targetColor.b.toFloat() / 255.0f
     }
 }

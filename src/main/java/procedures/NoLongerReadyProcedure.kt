@@ -1,6 +1,7 @@
 package procedures
 
 import com.github.iamniklas.liocore.led.LEDDataBundle
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
 import com.github.iamniklas.liocore.procedures.Procedure
 import java.awt.Color
 
@@ -12,15 +13,15 @@ class NoLongerReadyProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
     public override fun update() {
         if (step % 5 == 0) {
             if (mRedLightActive) {
-                strip!!.setAllPixels(Color.BLACK)
+                strip!!.setAllPixels(ColorRGB.black.toSystemColor())
             } else {
-                strip!!.setAllPixels(Color.RED)
+                strip!!.setAllPixels(ColorRGB.red.toSystemColor())
             }
             mRedLightActive = !mRedLightActive
         }
         step++
         if (step > mTotalSteps) {
-            strip!!.setAllPixels(Color.BLACK)
+            strip!!.setAllPixels(ColorRGB.black.toSystemColor())
             finishProcedure()
         }
     }

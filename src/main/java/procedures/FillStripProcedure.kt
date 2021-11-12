@@ -2,13 +2,14 @@ package procedures
 
 import com.github.iamniklas.liocore.led.LEDDataBundle
 import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.led.colorspace.ColorRGB
 import com.github.iamniklas.liocore.procedures.Procedure
 import com.github.iamniklas.liocore.procedures.models.Direction
 import java.awt.Color
 
 //Animation to fill the strip from a given direction (left, right, center, bounds) with a given color 
 class FillStripProcedure(_bundle: LEDDataBundle) : Procedure(_bundle) {
-    private var mFillColor = Color.BLACK
+    private var mFillColor = ColorRGB.black.toSystemColor()
     var mSpeed = 1
     var mDirection: Direction? = Direction.Left
     override fun start() {}
