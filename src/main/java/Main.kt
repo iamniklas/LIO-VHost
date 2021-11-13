@@ -1,11 +1,11 @@
 import com.github.iamniklas.liocore.led.LEDStripManager
+import com.github.iamniklas.liocore.network.LEDUpdateModel
+import com.github.iamniklas.liocore.network.NetworkCallback
+import com.github.iamniklas.liocore.network.Server
+import com.github.iamniklas.liocore.procedures.ProcedureFactory
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import led.SwingRenderer
-import network.LEDChangeModel
-import network.ReceiveCallback
-import network.Server
-import procedures.ProcedureFactory
 import java.awt.Color
 import java.awt.EventQueue
 import java.awt.FlowLayout
@@ -53,15 +53,15 @@ class Main {
         fun main(args: Array<String>) {
             mServer = Server(3333)
 
-            mServer!!.setListener(object : ReceiveCallback {
+            mServer!!.setListener(object : NetworkCallback {
                 override fun onReceiveMessage(_message: String?) {
                     println(_message)
                     val changeModel = GsonBuilder()
                         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                         .create()
-                        .fromJson(_message, LEDChangeModel::class.java)
-                    val type = changeModel.mProcedure
-                    val bundle = changeModel.mBundle!!
+                        .fromJson(_message, LEDUpdateModel::class.java)
+                    val type = changeModel.procedure
+                    val bundle = changeModel.bundle!!
                     bundle.ledStrip = ledMng
                     bundle.procedureCalls = ledMng
                     val p = ProcedureFactory.getProcedure(type, bundle)!!
