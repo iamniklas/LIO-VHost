@@ -1,7 +1,7 @@
 import com.github.iamniklas.liocore.led.LEDStripManager
-import com.github.iamniklas.liocore.network.LEDUpdateModel
-import com.github.iamniklas.liocore.network.NetworkCallback
-import com.github.iamniklas.liocore.network.Server
+import com.github.iamniklas.liocore.network.*
+import com.github.iamniklas.liocore.network.mqtt.IMqttCallback
+import com.github.iamniklas.liocore.network.mqtt.MQTTListener
 import com.github.iamniklas.liocore.procedures.ProcedureFactory
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -34,6 +34,35 @@ class Main {
             leds[i] = lblNewLabel
             frmLioVhost!!.contentPane.add(lblNewLabel)
         }
+
+        mqttClient = MQTTListener(object : IMqttCallback {
+            override fun onLEDUpdateModelReceive(_updateModel: LEDUpdateModel?) {
+                _updateModel!!.bundle.ledStrip = ledMng
+                _updateModel.bundle.procedureCalls = ledMng
+                val p = ProcedureFactory.getProcedure(_updateModel.procedure, _updateModel.bundle)!!
+                ledMng!!.procContainer.removeCurrentProcedure()
+                ledMng!!.procContainer.queueProcedure(p)
+            }
+
+            override fun onLEDUpdateModelReceiveAll(_updateModel: LEDUpdateModel?) {
+                _updateModel!!.bundle.ledStrip = ledMng
+                _updateModel.bundle.procedureCalls = ledMng
+                val p = ProcedureFactory.getProcedure(_updateModel.procedure, _updateModel.bundle)!!
+                ledMng!!.procContainer.removeCurrentProcedure()
+                ledMng!!.procContainer.queueProcedure(p)
+            }
+
+            override fun onLEDValueUpdateModelReceive(_valueUpdateModel: LEDValueUpdateModel?) {
+
+            }
+
+            override fun onLEDValueUpdateModelReceiveAll(_valueUpdateModel: LEDValueUpdateModel?) {
+
+            }
+        })
+
+        //ASUS-Niklas-2020:D8-3B-BF-12-68-21
+        mqttClient.connect()
     }
 
     companion object {
@@ -43,6 +72,8 @@ class Main {
         private var windowReady = false
         private var ledMng: LEDStripManager? = null
         private var mServer: Server? = null
+
+        private lateinit var mqttClient: MQTTListener
 
         /**
          * Launch the application.

@@ -1,0 +1,4 @@
+mqtt.user=lio
+mqtt.password=8kNhtmUG6kmUm3djdEE7MXmvAg4662
+mqtt.brokeraddress=tcp://000raspberry.ddns.net:1883
+mqtt.devicename=devicename
