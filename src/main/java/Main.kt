@@ -1,10 +1,9 @@
+import com.github.iamniklas.liocore.config.ProgramConfiguration
 import com.github.iamniklas.liocore.led.LEDStripManager
 import com.github.iamniklas.liocore.network.*
 import com.github.iamniklas.liocore.network.mqtt.IMqttCallback
 import com.github.iamniklas.liocore.network.mqtt.MQTTListener
 import com.github.iamniklas.liocore.procedures.ProcedureFactory
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.GsonBuilder
 import led.SwingRenderer
 import java.awt.Color
 import java.awt.EventQueue
@@ -31,7 +30,7 @@ class Main {
             val lblNewLabel = JLabel("■")
             lblNewLabel.font = Font("Tahoma", Font.BOLD, 10)
             lblNewLabel.foreground = Color.BLACK
-            leds[i] = lblNewLabel
+            leds!![i] = lblNewLabel
             frmLioVhost!!.contentPane.add(lblNewLabel)
         }
 
@@ -52,11 +51,11 @@ class Main {
                 ledMng!!.procContainer.queueProcedure(p)
             }
 
-            override fun onLEDValueUpdateModelReceive(_valueUpdateModel: LEDValueUpdateModel?) {
+            override fun onLEDValueUpdateModelReceive(_valueUpdateModel: LEDUpdateModel?) {
 
             }
 
-            override fun onLEDValueUpdateModelReceiveAll(_valueUpdateModel: LEDValueUpdateModel?) {
+            override fun onLEDValueUpdateModelReceiveAll(_valueUpdateModel: LEDUpdateModel?) {
 
             }
         })
@@ -66,12 +65,11 @@ class Main {
     }
 
     companion object {
-        private val leds = arrayOfNulls<JLabel>(300)
-        private var renderer: SwingRenderer = SwingRenderer(leds, 300)
+        private var leds: Array<JLabel?>? = null
+        private var renderer: SwingRenderer? = null
 
         private var windowReady = false
         private var ledMng: LEDStripManager? = null
-        private var mServer: Server? = null
 
         private lateinit var mqttClient: MQTTListener
 
@@ -82,26 +80,11 @@ class Main {
         @Throws(InterruptedException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            mServer = Server(3333)
+            ProgramConfiguration.configuration = ProgramConfiguration.readConfigFromFile()
 
-            mServer!!.setListener(object : NetworkCallback {
-                override fun onReceiveMessage(_message: String?) {
-                    println(_message)
-                    val changeModel = GsonBuilder()
-                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                        .create()
-                        .fromJson(_message, LEDUpdateModel::class.java)
-                    val type = changeModel.procedure
-                    val bundle = changeModel.bundle!!
-                    bundle.ledStrip = ledMng
-                    bundle.procedureCalls = ledMng
-                    val p = ProcedureFactory.getProcedure(type, bundle)!!
-                    ledMng!!.procContainer.removeCurrentProcedure()
-                    ledMng!!.procContainer.queueProcedure(p)
-                }
-            })
+            leds = arrayOfNulls(ProgramConfiguration.configuration.ledCount)
+            renderer = SwingRenderer(leds!!, ProgramConfiguration.configuration.ledCount)
 
-            mServer!!.start()
             EventQueue.invokeLater {
                 try {
                     val window = Main()
@@ -111,8 +94,10 @@ class Main {
                     e.printStackTrace()
                 }
             }
+
             Thread.sleep(1000)
-            ledMng = LEDStripManager(renderer, false)
+
+            ledMng = LEDStripManager(renderer, ProgramConfiguration.configuration.ledCount)
             while (true) {
                 ledMng!!.update()
             }
