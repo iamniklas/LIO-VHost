@@ -6,6 +6,7 @@ import com.github.iamniklas.liocore.network.mqtt.IMqttCallback
 import com.github.iamniklas.liocore.network.mqtt.MQTTListener
 import com.github.iamniklas.liocore.procedures.ProcedureFactory
 import com.github.iamniklas.liocore.procedures.ProcedureType
+import com.google.gson.Gson
 import led.SwingRenderer
 import java.awt.Color
 import java.awt.EventQueue
@@ -46,7 +47,9 @@ class Main {
             }
 
             override fun onLEDValueUpdateModelReceive(_valueUpdateModel: LEDUpdateModel?, _callForAllDevices: Boolean) {
-
+                println("Call for Live Update")
+                println(Gson().toJson(_valueUpdateModel))
+                ledMng.procContainer.activeProcedure.updateLEDDataBundle(_valueUpdateModel!!.bundle)
             }
         })
 
