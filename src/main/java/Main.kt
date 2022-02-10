@@ -6,6 +6,7 @@ import com.github.iamniklas.liocore.network.mqtt.IMqttCallback
 import com.github.iamniklas.liocore.network.mqtt.MQTTListener
 import com.github.iamniklas.liocore.procedures.ProcedureFactory
 import com.github.iamniklas.liocore.procedures.ProcedureType
+import com.github.iamniklas.liocore.procedures.variants.FadeToMultiColorProcedure
 import com.google.gson.Gson
 import led.SwingRenderer
 import java.awt.Color
