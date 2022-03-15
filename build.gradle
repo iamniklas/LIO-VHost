@@ -14,10 +14,12 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0'
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10'
+    implementation 'com.google.code.gson:gson:2.9.0'
 
-    implementation 'com.github.iamniklas:LIO-Core:0.0.8-1.6'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+
+    implementation 'com.github.iamniklas:lio-core:0.0.8-1.7'
     implementation 'com.github.iamniklas:Interpolation:1.0.0-2'
     implementation 'com.github.iamniklas:Colorspaces:0.0.1-3'
 }
